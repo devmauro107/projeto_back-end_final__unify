@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: unify-api
+
+  # Banco de Dados H2 (em memória para desenvolvimento)
+  datasource:
+    url: jdbc:h2:mem:unifydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # Console Web do H2 (acesse em http://localhost:8080/h2-console)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA / Hibernate
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Swagger / OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
