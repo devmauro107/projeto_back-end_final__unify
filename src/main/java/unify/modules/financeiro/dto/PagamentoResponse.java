@@ -6,10 +6,7 @@ import unify.modules.financeiro.model.Pagamento;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Representação de um pagamento devolvida pela API.
- * Nunca expõe a entidade Pagamento diretamente.
- */
+
 public record PagamentoResponse(
         Long id,
         Long pedidoId,
