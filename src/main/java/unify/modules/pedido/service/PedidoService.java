@@ -14,16 +14,19 @@ import unify.modules.pedido.repository.PedidoRepository;
 import java.util.List;
 
 @Service
-public class PedidoCliente {
+public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private  final ClienteRepository clienteRepository;
 
-    public PedidoCliente(PedidoRepository pedidoRepository, ClienteRepository clienteRepository) {
+    public PedidoService(PedidoRepository pedidoRepository, ClienteRepository clienteRepository) {
         this.pedidoRepository = pedidoRepository;
         this.clienteRepository = clienteRepository;
     }
 
+    /**
+     * Cria um novo pedido.
+     */
     @Transactional
     public PedidoResponse criar(PedidoRequest request) {
         Cliente cliente = clienteRepository.findById(request.clienteId())
@@ -43,7 +46,9 @@ public class PedidoCliente {
 
         return new PedidoResponse(pedidoSalvo);
     }
-
+    /**
+     * Busca um pedido pelo ID.
+     */
     @Transactional(readOnly = true)
     public PedidoRepository buscarPorId(Long id) {
         Pedido pedido = pedidoRepository.findById(id)
@@ -52,6 +57,9 @@ public class PedidoCliente {
         return pedidoRepository;
     }
 
+    /**
+     * Lista todos os pedidos, com opção de filtrar por status.
+     */
     @Transactional(readOnly = true)
     public List<PedidoResponse> listar(StatusPedido status) {
         List <Pedido> pedidos;
@@ -68,6 +76,9 @@ public class PedidoCliente {
                 .toList();
     }
 
+    /**
+     * Atualiza o status de um pedido.
+     */
     @Transactional
     public PedidoResponse atualizarStatus(Long id, StatusPedido novoStatus) {
         Pedido pedido = pedidoRepository.findById(id)
@@ -79,6 +90,9 @@ public class PedidoCliente {
         return new PedidoResponse(pedidoAtualizado);
     }
 
+    /**
+     * Atualiza um pedido existente.
+     */
     @Transactional
     public PedidoResponse atualizar(Long id, PedidoRequest request) {
         Pedido pedido = pedidoRepository.findById(id)
@@ -98,7 +112,4 @@ public class PedidoCliente {
 
             return new PedidoResponse(pedidoAtualizado);
     }
-
-
-
 }
