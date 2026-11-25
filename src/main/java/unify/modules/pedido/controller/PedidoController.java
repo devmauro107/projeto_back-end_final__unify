@@ -6,9 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unify.modules.pedido.dto.PedidoRequest;
 import unify.modules.pedido.dto.PedidoResponse;
 import unify.modules.pedido.service.PedidoService;
@@ -32,5 +30,12 @@ public class PedidoController {
         PedidoResponse response = pedidoService.criar(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar um pedido por ID")
+    public ResponseEntity<PedidoResponse> buscarPorId(@PathVariable Long id) {
+        PedidoResponse response = pedidoService.buscarPorId(id);
+        return ResponseEntity.ok(response);
     }
 }

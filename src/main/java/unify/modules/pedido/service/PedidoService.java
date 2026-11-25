@@ -50,11 +50,11 @@ public class PedidoService {
      * Busca um pedido pelo ID.
      */
     @Transactional(readOnly = true)
-    public PedidoRepository buscarPorId(Long id) {
+    public PedidoResponse buscarPorId(Long id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com ID: " + id));
 
-        return pedidoRepository;
+        return new PedidoResponse(pedido);
     }
 
     /**
