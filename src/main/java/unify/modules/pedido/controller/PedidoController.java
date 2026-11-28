@@ -43,17 +43,6 @@ public class PedidoController {
     }
 
     /**
-     * Busca um pedido por ID.
-     */
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar um pedido por ID")
-    public ResponseEntity<PedidoResponse> buscarPorId(@PathVariable Long id) {
-        PedidoResponse response = pedidoService.buscarPorId(id);
-
-        return ResponseEntity.ok(response);
-    }
-
-    /**
      * Lista todos os pedidos, com opção de filtrar por status.
      */
     @GetMapping
@@ -65,12 +54,34 @@ public class PedidoController {
     }
 
     /**
+     * Busca um pedido por ID.
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar um pedido por ID")
+    public ResponseEntity<PedidoResponse> buscarPorId(@PathVariable Long id) {
+        PedidoResponse response = pedidoService.buscarPorId(id);
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
      * Atualiza o status de um pedido.
      */
     @PatchMapping("/{id}/status")
     @Operation(summary = "Atualizar o status de um pedido")
     public ResponseEntity<PedidoResponse> atualizarStatus(@PathVariable Long id, @RequestParam StatusPedido status) {
         PedidoResponse response = pedidoService.atualizarStatus(id, status);
+
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Atualiza os dados de um pedido existente.
+     */
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar os dados de um pedido")
+    public ResponseEntity<PedidoResponse> atualizar(@PathVariable Long id, @RequestBody @Valid PedidoRequest request) {
+        PedidoResponse response = pedidoService.atualizar(id, request);
 
         return ResponseEntity.ok(response);
     }
